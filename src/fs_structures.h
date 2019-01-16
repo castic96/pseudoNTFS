@@ -23,6 +23,7 @@
    ____________________________________________________________________________
 */
 #define UID_ITEM_FREE			0		/* hodnota UID volného mft záznamu */
+#define UID_ITEM_ROOT			1		/* hodnota UID root adresáøe */
 #define BITMAP_FREE				0		/* hodnota v bitmapì - volno */
 #define MFT_FRAGMENTS_COUNT		32		/* poèet fragmentù v jednom MFT */			
 #define MB_TO_B_CONST			1048576	/* konstanta pro pøevod z MB na B */
@@ -71,5 +72,8 @@ mft_item *init_mft_item_root(int32_t data_start_address);
 mft_item *init_mft_item_free();
 void delete_mft_item_array(mft_item **curr_mft_item_arr, int mft_item_count);
 int8_t *init_bitmap(int cluster_count);
+boot_record *calloc_boot_record();
+mft_item **calloc_mft_item_array(int mft_item_count);
+int8_t *calloc_bitmap(int cluster_count);
 
 #endif

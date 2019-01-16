@@ -86,14 +86,19 @@ void init(int argc, char *argv[]) {
     dohromady vöechny jeho Ë·sti.
    ____________________________________________________________________________
 */
-void run() {
-	//ted tady spustit otevreni souboru + nahrani struktur pokud existuje	
+void run() {	
 	
 	if (!file_exists(file_name)) {
 		shell_before_format(file_name);
 	}
+	else {
+		if (load_file(file_name) != 1) {
+			exit(EXIT_FAILURE);
+		}
+	}
+	    
 	
-	//nactu struktury
+	
 	
 }
 

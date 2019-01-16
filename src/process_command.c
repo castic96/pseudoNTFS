@@ -43,7 +43,8 @@ int process_requirement_before(command *current_command, char *file_name) {
 			printf("Chyba pri vykonavani funkce process_command_format()\n");
 			return 0;
 		}
-	} else {
+	} 
+	else {
 		printf("Neznamy prikaz!\n");
 		return 0;
 	}
@@ -77,11 +78,17 @@ int process_command_format(command *current_command, char *file_name) {
 		
 			size_int = atoi(size_str);
 		
-			format_file(file_name, size_int);
-		
 			if (size_str != NULL) {
 				free(size_str);
 				size_str = NULL;
+			}
+			
+			if (format_file(file_name, size_int) != 1) {
+				return 0;
+			}
+			
+			if (load_file(file_name) != 1) {
+				return 0;
 			}
 		
 			return 1;

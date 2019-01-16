@@ -22,7 +22,7 @@
     Definované symboly preprocesoru
    ____________________________________________________________________________
 */
-//zde 
+#define		UID_ITEM_ROOT			1		/* hodnota UID root adresáøe */
 
 /* ____________________________________________________________________________
 
@@ -38,5 +38,6 @@
 */
 int file_exists(char *path_name);
 int format_file(char *path_name, int size);
+int load_file(char *path_name);
 
 #endif

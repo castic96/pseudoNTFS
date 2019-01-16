@@ -102,7 +102,7 @@ mft_item *init_mft_item_root(int32_t data_start_address) {
 	
 	mft_item *new_mft_item_root = (mft_item *) calloc(1, sizeof(mft_item));
 	
-	new_mft_item_root->uid = 1;
+	new_mft_item_root->uid = UID_ITEM_ROOT;
 	new_mft_item_root->type = 1;
 	new_mft_item_root->item_order = 1;
 	new_mft_item_root->item_order_total = 1;
@@ -179,6 +179,60 @@ int8_t *init_bitmap(int cluster_count) {
 	for (i = 1; i < cluster_count; i++) {
 		new_bitmap[i] = BITMAP_FREE;
 	}
+	
+	return new_bitmap;
+}
+
+
+/* ____________________________________________________________________________
+
+	boot_record *calloc_boot_record()
+    
+    Alokuje místo v pamìti pro strukturu boot_record. Vrátí ukazatel na 
+	poèátek alokované oblasti.
+   ____________________________________________________________________________
+*/
+boot_record *calloc_boot_record() {
+	
+	boot_record *new_boot_rec = (boot_record *) calloc(1, sizeof(boot_record));
+
+	return new_boot_rec;
+}
+
+
+/* ____________________________________________________________________________
+
+	mft_item **calloc_mft_item_array(int mft_item_count)
+    
+    Alokuje místo v pamìti pro pole obsahující ukazatele na strukturu mft_item. 
+	Vrátí ukazatel na poèátek alokované oblasti.
+   ____________________________________________________________________________
+*/
+mft_item **calloc_mft_item_array(int mft_item_count) {
+	
+	int i;	
+	
+	mft_item **new_mft_item_arr = (mft_item **) calloc(mft_item_count, sizeof(mft_item *));
+	
+	for (i = 0; i < mft_item_count; i++) {
+		new_mft_item_arr[i] = (mft_item *) calloc(1, sizeof(mft_item));
+	}
+	
+	return new_mft_item_arr;
+}
+
+
+/* ____________________________________________________________________________
+
+	int8_t *calloc_bitmap(int cluster_count) 
+    
+    Alokuje místo v pamìti pro bitmapu. Vrátí ukazatel na poèátek alokované 
+	oblasti.
+   ____________________________________________________________________________
+*/
+int8_t *calloc_bitmap(int cluster_count) {
+	
+	int8_t *new_bitmap = (int8_t *) calloc(cluster_count, sizeof(int8_t));
 	
 	return new_bitmap;
 }
