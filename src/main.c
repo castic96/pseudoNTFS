@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "file_manager.h"
+#include "shell.h"
 
 /* ____________________________________________________________________________
 

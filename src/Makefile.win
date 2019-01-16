@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o file_manager.o command.o shell.o process_command.o
-LINKOBJ  = main.o file_manager.o command.o shell.o process_command.o
+OBJ      = main.o file_manager.o command.o shell.o process_command.o fs_structures.o
+LINKOBJ  = main.o file_manager.o command.o shell.o process_command.o fs_structures.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -38,3 +38,6 @@ shell.o: shell.c
 
 process_command.o: process_command.c
 	$(CC) -c process_command.c -o process_command.o $(CFLAGS)
+
+fs_structures.o: fs_structures.c
+	$(CC) -c fs_structures.c -o fs_structures.o $(CFLAGS)

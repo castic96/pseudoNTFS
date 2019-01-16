@@ -31,6 +31,7 @@
    ____________________________________________________________________________
 */
 command *new_command(char *buffer) {
+	
 	command *new_comm = (command *) calloc(1, sizeof(command));
 	
 	new_comm->function = strtok(buffer, " ");

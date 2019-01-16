@@ -37,5 +37,6 @@
    ____________________________________________________________________________
 */
 int file_exists(char *path_name);
+int format_file(char *path_name, int size);
 
 #endif

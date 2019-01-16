@@ -17,8 +17,6 @@
 #ifndef _PROCESS_COMMAND_H
 #define _PROCESS_COMMAND_H
 
-#include "command.h"
-
 /* ____________________________________________________________________________
 
     Definované symboly preprocesoru
