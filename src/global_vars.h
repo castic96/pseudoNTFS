@@ -22,7 +22,7 @@
     Definované symboly preprocesoru
    ____________________________________________________________________________
 */
-//
+#define		END_VALUE		-1 		/* ukonèovací hodnota v dat. oblasti */
 
 /* ____________________________________________________________________________
 
@@ -46,5 +46,7 @@
 extern boot_record *global_boot_record;
 extern mft_item **global_mft_item_array;
 extern int8_t *global_bitmap;
+
+extern int32_t pwd;
 
 #endif

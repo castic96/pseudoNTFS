@@ -51,3 +51,33 @@ void shell_before_format(char *file_name) {
 		
 	} while (!isCorrect);
 }
+
+
+/* ____________________________________________________________________________
+
+	void shell_after_format(char *file_name)
+    
+    Shell, který je spuštìný po prvním naformátováním souboru.
+   ____________________________________________________________________________
+*/
+void shell_after_format(char *file_name) {
+	
+	command *current_command = NULL;
+	char buffer[BUFF_SIZE];
+		
+	do {
+		memset(buffer, 0, BUFF_SIZE * sizeof(char));
+		fgets(buffer, BUFF_SIZE, stdin);
+		
+		current_command = new_command(buffer);
+		
+		process_requirement_after(current_command, file_name);
+	
+		/* uvolnìní pamìti po `current_command' */
+		if (current_command != NULL) {
+			free(current_command);
+			current_command = NULL;
+		}
+		
+	} while (1);
+}

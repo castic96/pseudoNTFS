@@ -58,6 +58,7 @@ int format_file(char *path_name, int size) {
 	int mft_item_count;
 	int32_t data_start_address;
 	int32_t root_link = UID_ITEM_ROOT;
+	int32_t end_int_value = END_VALUE;
 	
 	FILE *file = NULL;
 	boot_record *curr_boot_rec = NULL;
@@ -89,9 +90,9 @@ int format_file(char *path_name, int size) {
 		
 		fwrite(curr_bitmap, sizeof(int8_t), (size_t) curr_boot_rec->cluster_count, file);
 	
-		/* zapsání odkazu na root adresáø na zaèátek datové oblasti */
+		/* zapsání odkazu na root adresáø na zaèátek datové oblasti + ukonèovací hodnota */
 		fwrite(&root_link, sizeof(int32_t), 1, file);
-		//fwrite('\0', sizeof(char), 1, file);
+		fwrite(&end_int_value, sizeof(int32_t), 1, file);
 			
 		/* zapsání EOF na konec celého souboru */
         fseek(file, curr_boot_rec->data_start_address + curr_boot_rec->disk_size, SEEK_SET);
@@ -175,6 +176,7 @@ int load_file(char *path_name) {
 	
 	int i;
 	int mft_item_count;
+	int global_mft_item_count;
 
 	FILE *file = NULL;
 	boot_record *curr_boot_rec = NULL;
@@ -199,10 +201,34 @@ int load_file(char *path_name) {
 		curr_bitmap = calloc_bitmap(curr_boot_rec->cluster_count);
 		fread(curr_bitmap, sizeof(int8_t), (size_t) curr_boot_rec->cluster_count, file);
 		
+		/* uvolnìní pamìti po `global_boot_record' + výpoèet global_mft_item_count */
+		if (global_boot_record != NULL) {
+			global_mft_item_count = (global_boot_record->bitmap_start_address - 
+							global_boot_record->mft_start_address) / sizeof(mft_item);
+			free(global_boot_record);
+			global_boot_record = NULL;
+		}
+		
+		/* uvolnìní pamìti po `global_mft_item_array' */
+		if (global_mft_item_array != NULL) {
+			delete_mft_item_array(global_mft_item_array, global_mft_item_count);
+			global_mft_item_array = NULL;
+		}
+		
+		/* uvolnìní pamìti po `global_bitmap' */
+		if (global_bitmap != NULL) {
+			free(global_bitmap);
+			global_bitmap = NULL;
+		}
+		
 		global_boot_record = curr_boot_rec;
 		global_mft_item_array = curr_mft_item_arr;
 		global_bitmap = curr_bitmap;
 		
+		pwd = 1;
+		
+		fclose(file);
+				
 		return 1;	
 	}
 	else {

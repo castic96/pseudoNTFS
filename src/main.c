@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 #include "file_manager.h"
 #include "shell.h"
 
@@ -54,6 +55,12 @@ void showhelp() {
 	printf("Priklad:\n   pseudoNTFS.exe myFS \n\n");
 }
 
+/*
+void sigint_handler(int sig){
+	printf("\nPressing CTRL+C detected. File system shutdown...\n");
+    exit(0);
+}
+*/
 
 /* ____________________________________________________________________________
 
@@ -87,6 +94,8 @@ void init(int argc, char *argv[]) {
    ____________________________________________________________________________
 */
 void run() {	
+
+	//signal(SIGINT, sigint_handler);
 	
 	if (!file_exists(file_name)) {
 		shell_before_format(file_name);
@@ -96,10 +105,8 @@ void run() {
 			exit(EXIT_FAILURE);
 		}
 	}
-	    
 	
-	
-	
+	shell_after_format(file_name);
 }
 
 

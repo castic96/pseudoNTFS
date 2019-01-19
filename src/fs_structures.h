@@ -27,7 +27,7 @@
 #define BITMAP_FREE				0		/* hodnota v bitmapì - volno */
 #define MFT_FRAGMENTS_COUNT		32		/* poèet fragmentù v jednom MFT */			
 #define MB_TO_B_CONST			1048576	/* konstanta pro pøevod z MB na B */
-#define CLUSTER_SIZE			10		/* velikost clusteru */
+#define CLUSTER_SIZE			1024	/* velikost clusteru v B */
 
 /* ____________________________________________________________________________
 

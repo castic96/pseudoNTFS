@@ -37,5 +37,6 @@
    ____________________________________________________________________________
 */
 void shell_before_format(char *file_name);
+void shell_after_format(char *file_name);
 
 #endif

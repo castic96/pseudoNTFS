@@ -37,6 +37,9 @@
    ____________________________________________________________________________
 */
 int process_requirement_before(command *current_command, char *file_name);
+int process_requirement_after(command *current_command, char *file_name);
 int process_command_format(command *current_command, char *file_name);
+int process_command_ls(command *current_command, char *file_name);
+int process_command_pwd(command *current_command, char *file_name);
 
 #endif

@@ -30,3 +30,5 @@
 boot_record *global_boot_record = NULL;
 mft_item **global_mft_item_array = NULL;
 int8_t *global_bitmap = NULL;
+
+int32_t pwd = -1;
