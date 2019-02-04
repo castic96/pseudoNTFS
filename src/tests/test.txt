@@ -1,0 +1,65 @@
+mkdir tree
+mkdir bin
+mkdir boot
+mkdir users
+mkdir dev
+mkdir etc
+mkdir home
+mkdir /users/ja
+mkdir /users/user1
+mkdir /users/user2
+mkdir /users/ja/file
+mkdir /users/ja/desktop
+mkdir /users/user1/file
+mkdir /users/user1/desktop
+mkdir /users/user2/file
+mkdir /users/user2/desktop
+mkdir /home/text
+mkdir /home/videos
+incp ./test_dir/pic.png /users/ja/file/pic.png
+incp ./test_dir/test1.txt /home/text/test1.txt
+incp ./test_dir/pic.png /home/videos/pic.png
+incp ./test_dir/tree1.txt /tree/tree1.txt
+ls users/ja/file
+ls
+cd home/text
+pwd
+cd ../..
+pwd
+cd /
+pwd
+cd tree
+pwd
+outcp tree1.txt test_dir/output/tree1.txt
+cp /home/text/test1.txt /users/user2/file/test1.txt
+cd /
+slink /home/text/test1.txt slink.txt
+cp slink.txt /users/user1/file/slink.txt
+mv /users/user2/file/test1.txt test1.txt
+mv /users/user1/file/slink.txt slink2.txt
+rm slink.txt
+rmdir bin
+info home
+cat /tree/tree1.txt
+#
+#                           root
+#          ___________________|______________________________________________
+#          |      |       |      |       |       |                           |
+#         bin    boot    users  dev    etc      home                        tree
+#                         |                  ____|____                       |
+#                  _______|______           |         |                 tree1.txt
+#                  |      |      |        text      videos
+#                 ja    user1   user2       |          |
+#                  |      |      |      test1.txt     pic.png
+#              ____|___   |      |
+#             |        |  |      |
+#           file  desktop |      |
+#            |            |      |
+#        pic.png      ____|___   |
+#                    |        |  |
+#                  file  desktop |
+#                                |
+#                                |
+#                            ____|___
+#                           |        |
+#                         file  desktop

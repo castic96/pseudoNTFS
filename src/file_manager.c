@@ -100,43 +100,6 @@ int format_file(char *path_name, int size) {
 		
 		fclose(file);
 		
-	    // test boot recordu
-	    /*
-	    printf("----------- BOOT RECORD -----------\n");
-	    printf("Signature: \t\t%s\n", curr_boot_rec->signature);
-		printf("Description: \t\t%s\n", curr_boot_rec->volume_descriptor);
-	    printf("Disk size: \t\t%dB\n", curr_boot_rec->disk_size);
-	    printf("Cluster count: \t\t%d\n", curr_boot_rec->cluster_count);
-	    printf("Cluster size: \t\t%dB\n", curr_boot_rec->cluster_size);
-	    printf("MFT start address: \t%d\n", curr_boot_rec->mft_start_address);
-	    printf("Bit map start address: \t%d\n", curr_boot_rec->bitmap_start_address);
-	    printf("Data start address: \t%d\n", curr_boot_rec->data_start_address);
-	    printf("MFT fragments count: \t%d\n", curr_boot_rec->mft_max_fragment_count);
-	    printf("-----------------------------------\n");
-	    */
-	    
-	    //kontrola pozice v souboru!!!
-	    /*
-		long pos;
-		pos = ftell(file);
-		printf("pos1 is %ld bytes\n", pos);
-		*/
-    
-	    /* test naplnÏnÌ pole MFT z·znam˘
-	    for (i = 0; i < mft_item_count; i++) {
-	    	printf("UID: %d\n", curr_mft_item_arr[i]->uid);
-	    	printf("Type: %d\n", curr_mft_item_arr[i]->type);
-	    	printf("Name: %s\n", curr_mft_item_arr[i]->item_name);
-	    	printf("\n\n");
-		}*/
-	
-		//uvolnit pamÏù po curr_mft_item_arr!!!
-    
-		/* test naplnÏnÌ bitmapy
-		for (i = 0; i < curr_boot_rec->cluster_count; i++) {
-			printf("%d ", curr_bitmap[i]);
-		}*/
-    
 	    /* uvolnÏnÌ pamÏti po `curr_boot_rec' */
 		if (curr_boot_rec != NULL) {
 			free(curr_boot_rec);
@@ -158,7 +121,7 @@ int format_file(char *path_name, int size) {
 		return 1;
 	}
 	else {
-		printf("Chyba pri vykonavani funkce format_file()\n");
+		printf("Error in function format_file()\n");
 		return 0;
 	}
 }
@@ -232,7 +195,7 @@ int load_file(char *path_name) {
 		return 1;	
 	}
 	else {
-		printf("Chyba pri vykonavani funkce load_file()\n");
+		printf("Error in function load_file()\n");
 		return 0;
 	}
 }

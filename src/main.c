@@ -19,8 +19,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <stdint.h>
+#include "fs_structures.h"
 #include "file_manager.h"
 #include "shell.h"
+#include "global_vars.h"
 
 /* ____________________________________________________________________________
 
@@ -35,7 +38,6 @@
    ____________________________________________________________________________
 */
 char *file_name = NULL; 			/* název souboru se strukturou FS */
-//command *current_command = NULL;	/* aktuální pøíkaz zadaný uživatelem */
 
 
 /* ____________________________________________________________________________
@@ -47,20 +49,14 @@ char *file_name = NULL; 			/* název souboru se strukturou FS */
 */
 void showhelp() {
 	
-	printf("\nNapoveda:\n");
-	printf("\nPouziti:\n   pseudoNTFS.exe <souborovy_system>\n\n");
-	printf("   <souborovy_system>");
-	printf(" - nazev souboroveho systemu,");
-	printf(" do ktereho se ukladaji informace o souborech.\n");
-	printf("Priklad:\n   pseudoNTFS.exe myFS \n\n");
+	printf("\nHELP:\n");
+	printf("\nUsage:\n   pseudoNTFS.exe <file_system>\n\n");
+	printf("   <file_system>");
+	printf(" - name of the file system to");
+	printf(" save inforamtion of files.\n");
+	printf("Example:\n   pseudoNTFS.exe myFS \n\n");
 }
 
-/*
-void sigint_handler(int sig){
-	printf("\nPressing CTRL+C detected. File system shutdown...\n");
-    exit(0);
-}
-*/
 
 /* ____________________________________________________________________________
 
@@ -71,9 +67,13 @@ void sigint_handler(int sig){
    ____________________________________________________________________________
 */
 void init(int argc, char *argv[]) {
+	
+	/* vypsání úvodní hlášky */
+	printf("PseudoNTFS File System 1.0 Rel. 04-Feb-2019\n");
+	printf("Semestral work - subject KIV/ZOS\n\n");
 		
 	if (argc != NUM_OF_ARGS) {
-		printf("Nespravny pocet argumentu.\n");
+		printf("Incorrect count of arguments.\n");
 		showhelp();
 		exit(EXIT_FAILURE);
 	}
@@ -93,9 +93,7 @@ void init(int argc, char *argv[]) {
     dohromady všechny jeho èásti.
    ____________________________________________________________________________
 */
-void run() {	
-
-	//signal(SIGINT, sigint_handler);
+void run() {
 	
 	if (!file_exists(file_name)) {
 		shell_before_format(file_name);
@@ -119,11 +117,31 @@ void run() {
    ____________________________________________________________________________
 */
 void shutdown() {
+	int mft_item_count = (global_boot_record->bitmap_start_address - 
+			global_boot_record->mft_start_address) / sizeof(mft_item);
 	
 	/* uvolnìní pamìti po `file_name' */
 	if (file_name != NULL) {
 		free(file_name);
 		file_name = NULL;
+	}
+	
+	/* uvolnìní pamìti po `global_boot_record' */
+	if (global_boot_record != NULL) {
+		free(global_boot_record);
+		global_boot_record = NULL;
+	}
+	
+	/* uvolnìní pamìti po `global_mft_item_array' */
+	if (global_mft_item_array != NULL) {
+		delete_mft_item_array(global_mft_item_array, mft_item_count);
+		global_mft_item_array = NULL;
+	}
+	
+	/* uvolnìní pamìti po `global_bitmap' */
+	if (global_bitmap != NULL) {
+		free(global_bitmap);
+		global_bitmap = NULL;
 	}
 	
 	/* uzavøení proudù */

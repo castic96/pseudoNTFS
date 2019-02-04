@@ -18,9 +18,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 #include "shell.h"
 #include "command.h"
 #include "process_command.h"
+#include "fs_structures.h"
+#include "global_vars.h"
 
 /* ____________________________________________________________________________
 
@@ -36,6 +39,7 @@ void shell_before_format(char *file_name) {
 	int isCorrect = 0;
 		
 	do {
+		printf(">> ");
 		memset(buffer, 0, BUFF_SIZE * sizeof(char));
 		fgets(buffer, BUFF_SIZE, stdin);
 		
@@ -49,7 +53,7 @@ void shell_before_format(char *file_name) {
 			current_command = NULL;
 		}
 		
-	} while (!isCorrect);
+	} while ((!isCorrect) && (run_shell));
 }
 
 
@@ -66,6 +70,7 @@ void shell_after_format(char *file_name) {
 	char buffer[BUFF_SIZE];
 		
 	do {
+		printf(">> ");
 		memset(buffer, 0, BUFF_SIZE * sizeof(char));
 		fgets(buffer, BUFF_SIZE, stdin);
 		
@@ -79,5 +84,5 @@ void shell_after_format(char *file_name) {
 			current_command = NULL;
 		}
 		
-	} while (1);
+	} while (run_shell);
 }
