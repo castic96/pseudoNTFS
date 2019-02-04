@@ -117,6 +117,7 @@ void run() {
    ____________________________________________________________________________
 */
 void shutdown() {
+	
 	int mft_item_count = (global_boot_record->bitmap_start_address - 
 			global_boot_record->mft_start_address) / sizeof(mft_item);
 	
